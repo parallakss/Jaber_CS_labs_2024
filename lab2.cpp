@@ -1,143 +1,193 @@
+#include <cmath>
 #include <iomanip>
 #include <iostream>
-#include <cmath>
 
 namespace {
-const int kTerm1 = 3;
-const int kTerm2 = 5;
-const int kTerm3 = 10;
+const int kBeginSequenceTask1 = 5;
+const int kStepSequenceTask1 = 5;
 
-const int kDefaultWidth = 5;
-const int kTask3tWidth = 15;
+const int kBeginSequenceNegativeTask2 = 3;
+const int kEndSequenceNegativeTask2 = 9;
+const int kStepSequenceNegativeTask2 = 3;
 
-const int kPrecisionX = 2;
-const int kPrecisionYS = 8;
+const int kBeginSequencePositiveTask2 = 2;
+const int kEndSequencePositiveTask2 = 8;
+const int kStepSequencePositiveTask2 = 2;
 
-const int kALessZeroEndTask2 = 8;
-const int kANotLessZeroEndTask2 = 9;
+const int kMimPositiveNumberTask2 = 0;
 
-const int kStepALessZeroTask2 = 2;
-const int kStepANotLessZeroTask2 = 2;
+const int kPrintPrecisionX = 1;
+const int kPrintPrecisionFuction = 6;
+const double kEps = 1e-6;
+const double kStepOfTask3 = 0.2;
+const int kColumnWidth = 15;
+
+const double kEndSequenceTask3 = 1.0;
+
+const int kBeginingSequenceTask4 = 1;
+
+const int kCheckpoint1Task4 = 3;
+const int kCheckpoint2Task4 = 5;
+const int kCheckpoint3Task4 = 10;
 }  // namespace
 
-void FirstTask() {
-    int n{};
-    int m{};
-    std::cout << "Введите два натуральных, числовых значения n и m, таких что n>m" << '\n';
-    std::cin >> n >> m;
+void cinIntInteger(int& inputNumber) {
+    std::cin >> inputNumber;
+    while (std::cin.fail()) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Некорректные данные. Введите число повторно:\n";
+        std::cin >> inputNumber;
+    }
+}
 
-    const int step = 5;
-    const int rangeStart = 5;
+void cinIntNatural(int& inputNumber) {
+    std::cin >> inputNumber;
+    while (std::cin.fail() || inputNumber < 1) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Некорректные данные. ";
+        if (inputNumber < 1) {
+            std::cout << "Число должно быть натуральным! ";
+        }
+        std::cout << "Введите число повторно:\n";
+        std::cin >> inputNumber;
+    }
+}
 
-    int sum{};
-    for (int i = rangeStart; i <= n; i += step) {
+void cinDouble(double& inputNumber) {
+    std::cin >> inputNumber;
+    while (std::cin.fail()) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Некорректные данные. Введите число повторно:\n";
+        std::cin >> inputNumber;
+    }
+}
+
+void TaskOne() {
+    int n = 0;
+    int m = 0;
+    std::cout << "Введите числа n и m:\n";
+    cinIntNatural(n);
+    cinIntNatural(m);
+    if (m >= n) {
+        std::cout << "m должно быть меньше n\n";
+        return;
+    }
+    int summary = 0;
+    for (int i = kBeginSequenceTask1; i < n; i += kStepSequenceTask1) {
         if (i % m != 0) {
-            sum += i;
+            summary += i;
         }
     }
-    std::cout << sum << '\n';
+    std::cout << "Ответ: " << summary << '\n';
 }
 
-void SecondTask() {
-    double a{};
-    double product = 1.0;
-    std::cout << "Введите числовое значение a " << '\n';
-    std::cin >> a;
-    if (a >= 0) {
-        for (int i = 2; i <= kANotLessZeroEndTask2; i += kStepANotLessZeroTask2) {
-            product *= (i * i - a);
+void TaskTwo() {
+    double a = 0.;
+    double multiply = 1;
+    std::cout << "Введите число a:\n";
+    cinDouble(a);
+    std::cout << "Ответ: ";
+    if (a < kMimPositiveNumberTask2) {
+        for (int i = kBeginSequenceNegativeTask2; i <= kEndSequenceNegativeTask2; i += kStepSequenceNegativeTask2) {
+            multiply *= (i - 2);
         }
+        std::cout << multiply;
     } else {
-        for (int i = 3; i <= kALessZeroEndTask2; i += kStepALessZeroTask2) {
-            product *= (i - 2);
+        for (int i = kBeginSequencePositiveTask2; i <= kEndSequencePositiveTask2; i += kStepSequencePositiveTask2) {
+            multiply *= pow(i, 2);
+        }
+        multiply -= a;
+        std::cout << multiply;
+    }
+    std::cout << '\n';
+}
+
+struct CalculationResult {
+    double Y;
+    double S;
+    int N;
+    void CalculateTaylorSeriesOfS(double x, double eps = kEps) {
+        double lastTerm = -1.5 * pow(x, 2);
+        N = 1;
+        S = 1 + lastTerm;
+        while (std::abs(lastTerm) > eps) {
+            lastTerm *= -(2 * pow(N, 2) + 4 * N + 3) / (8 * pow(N, 4) + 12 * pow(N, 3) + 8 * pow(N, 2) + 6 * pow(N, 1) + 2) * pow(x, 2);
+            S += lastTerm;
+            ++N;
         }
     }
+    void CalculateTaylorSeriesOfY(double x) { Y = (1 - pow(x, 2) / 2) * std::cos(x) - x / 2 * std::sin(x); }
+};
 
-    std::cout << product << '\n';
-}
-
-double ComputeY(double x) {
-    return (std::exp(x) + std::exp(-x)) / 2.0;
-}
-
-void ThirdTask() {
-    const double h = 0.2;
-    const double eps = 1e-6;
-
-    std::cout << std::setw(kDefaultWidth) << "x" << std::setw(kTask3tWidth) << "Y(x)" << std::setw(kTask3tWidth) << "S(x)" << std::setw(kDefaultWidth)
+void TaskThree() {
+    std::cout << std::setw(kColumnWidth) << "x" << std::setw(kColumnWidth) << "Y(x)" << std::setw(kColumnWidth) << "S(x)" << std::setw(kColumnWidth)
               << "N" << '\n';
+    double x = 0;
+    while (x <= kEndSequenceTask3) {
+        CalculationResult taylorResult;
+        taylorResult.CalculateTaylorSeriesOfS(x);
+        taylorResult.CalculateTaylorSeriesOfY(x);
+        std::cout << std::setw(kColumnWidth) << std::setprecision(kPrintPrecisionX) << x << std::setw(kColumnWidth)
+                  << std::setprecision(kPrintPrecisionFuction) << taylorResult.Y << std::setw(kColumnWidth) << taylorResult.S
+                  << std::setw(kColumnWidth) << taylorResult.N << '\n';
+        x += kStepOfTask3;
+    }
+}
 
-    for (double x = 0; x <= 1; x += h) {
-        double Y = ComputeY(x);
-        double S = 1.0;
-        double term = 1.0;
-        int n = 1;
-
-        while (std::fabs(term) >= eps) {
-            term *= x * x / (2.0 * n * (2.0 * n - 1.0));
-            S += term;
-            ++n;
+void TaskFour() {
+    int n = 0;
+    std::cout << "Введите число n:\n";
+    cinIntNatural(n);
+    double y = 0;
+    for (int i = kBeginingSequenceTask4; i <= n; i++) {
+        y = sqrt(y + 2 * i);
+        if ((i == kCheckpoint1Task4 && n != kCheckpoint1Task4) || (i == kCheckpoint2Task4 && n != kCheckpoint2Task4) ||
+            (i == kCheckpoint3Task4 && n != kCheckpoint3Task4)) {
+            std::cout << "n = " << i << "\t Ответ = " << y << '\n';
         }
-
-        std::cout << std::setw(kDefaultWidth) << std::fixed << std::setprecision(kPrecisionX) << x << std::setw(kTask3tWidth) << std::fixed
-                  << std::setprecision(kPrecisionYS) << Y << std::setw(kTask3tWidth) << std::fixed << std::setprecision(kPrecisionYS) << S
-                  << std::setw(kDefaultWidth) << n << '\n';
     }
+    std::cout << "Итоговый ответ = " << y << '\n';
 }
 
-double CalculateY(int n, int terms) {
-    double sum = 0.0;
-    int lastN = n - terms + 1;
-    for (int i = 0; i < terms; i++) {
-        sum = sqrt(2 * (lastN + i) + sum);
-    }
-    return sum;
+void PrintMenu() {
+    std::cout << "------------------MENU------------------\n";
+    std::cout << "|             1 - Задача 1             |\n";
+    std::cout << "|             2 - Задача 2             |\n";
+    std::cout << "|             3 - Задача 3             |\n";
+    std::cout << "|             4 - Задача 4             |\n";
+    std::cout << "----------------------------------------\n";
 }
 
-void FourthTask() {
-    int n;
-
-    std::cout << "Введите натуральное число n: ";
-    std::cin >> n;
-
-    std::cout << "Результат для 3 слагаемых: " << CalculateY(n, kTerm1) << '\n';
-    std::cout << "Результат для 5 слагаемых: " << CalculateY(n, kTerm2) << '\n';
-    std::cout << "Результат для 10 слагаемых: " << CalculateY(n, kTerm3) << '\n';
-    if (n != kTerm1 && n != kTerm2 && n != kTerm3) {
-        std::cout << "Результат для " << n << " слагаемых: " << CalculateY(n, n) << '\n';
-    }
-}
-int main(int, char**){
+int main(int, char**) {
+    std::cout << std::fixed << std::setprecision(kPrintPrecisionFuction);
+    std::cout << "Введите задачу, которую хотите решить. Вводе должно быть число. \n";
     char continueExecution = 'y';
     while (continueExecution == 'y') {
-        std::cout << "Задача 1: Поиск суммы натуральных чисел на отрезке от 1 до n" << std::endl;
-        std::cout << "Задача 2: Вычисление произведения ряда чисел с заданным условием" << std::endl;
-        std::cout << "Задача 3: Вычисление значения суммы ряда Тейлора" << std::endl;
-        std::cout << "Задача 4: Вычисление Y по предоставленной формуле" << std::endl << std::endl;
-        std::cout << "Для выполнения задачи 1 - нажмите '1', для задачи 2 - '2', для задачи 3 - '3', для задачи 4 - '4'" << std::endl;
-
-        char enteredTaskNum = {};
-        std::cin >> enteredTaskNum;
-        switch (enteredTaskNum) {
-            case '1':
-                FirstTask();
+        PrintMenu();
+        int numberTask = 0;
+        cinIntNatural(numberTask);
+        switch (numberTask) {
+            case 1:
+                TaskOne();
                 break;
-            case '2':
-                SecondTask();
+            case 2:
+                TaskTwo();
                 break;
-            case '3':
-                ThirdTask();
+            case 3:
+                TaskThree();
                 break;
-            case '4':
-                FourthTask();
+            case 4:
+                TaskFour();
                 break;
             default:
-                std::cout << "Введён несуществующий номер задачи" << '\n';
+                std::cout << "Такой задачи пока что нет.\n";
                 break;
         }
-        std::cout << "Хотите продолжить работу (y - продолжить, n - завершить)? ";
+        std::cout << "Продолжить работу? (y/n)\n";
         std::cin >> continueExecution;
     }
-
-    return 0;
+    std::cout << "Мяу\n";
 }
