@@ -103,7 +103,7 @@ void FourthTask() {
     std::cout << "Результат для 3 слагаемых: " << CalculateY(n, kTerm1) << '\n';
     std::cout << "Результат для 5 слагаемых: " << CalculateY(n, kTerm2) << '\n';
     std::cout << "Результат для 10 слагаемых: " << CalculateY(n, kTerm3) << '\n';
-    if (n != 3 && n != 5 && n != 10) {
+    if (n != kTerm1 && n != kTerm2 && n != kTerm3) {
         std::cout << "Результат для " << n << " слагаемых: " << CalculateY(n, n) << '\n';
     }
 }
