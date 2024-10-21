@@ -69,7 +69,8 @@ void CalculateTaylorSeries(double x) {
     double s = 1.0 + lastTerm;
 
     while (std::abs(lastTerm) > epsilon) {
-        lastTerm *= -(2 * pow(n, 2) + 4 * n + 3) / (8 * pow(n, 4) + 12 * pow(n, 3) + 8 * pow(n, 2) + 6 * pow(n, 1) + 2) * pow(x, 2);
+        double k = -(2 * pow(n, 2) + 4 * n + 3) / (8 * pow(n, 4) + 12 * pow(n, 3) + 8 * pow(n, 2) + 6 * pow(n, 1) + 2) * pow(x, 2);
+        lastTerm *= k;
         s += lastTerm;
         ++n;
     }
