@@ -12,6 +12,14 @@ const int kTask3tWidth = 15;
 
 const int kPrecisionX = 2;
 const int kPrecisionYS = 8;
+
+const double kValue1 = -1.5;
+const int kValue2 = 2;
+const int kValue3 = 4;
+const int kValue4 = 6;
+const int kValue5 = 3;
+const int kValue6 = 8;
+const int kValue7 = 12;
 }  // namespace
 
 void FirstTask() {
@@ -63,13 +71,15 @@ void SecondTask() {
 
 void CalculateTaylorSeries(double x) {
     const double epsilon = 1e-6;
-    double y = std::cos(x) * (1 - x * x / 2.0) - std::sin(x) * (x / 2);
-    int n = 1;
-    double lastTerm = -1.5 * pow(x, 2);
+    double y = std::cos(x) * (1 - x * x / kValue2) - std::sin(x) * (x / kValue2);
+    int n;
+    n = 1;
+    double lastTerm = kValue1 * pow(x, 2);
     double s = 1.0 + lastTerm;
 
     while (std::abs(lastTerm) > epsilon) {
-        double k = -(2 * pow(n, 2) + 4 * n + 3) / (8 * pow(n, 4) + 12 * pow(n, 3) + 8 * pow(n, 2) + 6 * pow(n, 1) + 2) * pow(x, 2);
+        double k = -(kValue2 * pow(n, 2) + kValue3 * n + kValue5) /
+                   (kValue6 * pow(n, 4) + kValue7 * pow(n, 3) + kValue6 * pow(n, 2) + kValue4 * pow(n, 1) + kValue2) * pow(x, 2);
         lastTerm *= k;
         s += lastTerm;
         ++n;
