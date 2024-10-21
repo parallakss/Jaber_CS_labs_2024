@@ -61,33 +61,22 @@ void SecondTask() {
     std::cout << product << '\n';
 }
 
-// double Fact(int n) {
-//     int i = 1;
-//     double f = 1;
-//     while (i <= 2 * n) {
-//         f *= i;
-//         ++i;
-//     }
-//     return f;
-// }
-
 void CalculateTaylorSeries(double x) {
     const double epsilon = 1e-6;
     double y = std::cos(x) * (1 - x * x / 2.0) - std::sin(x) * (x / 2);
     int n = 1;
-    double s = 1.0;
-    double prevSeriesElem = 1;
+    double lastTerm = -1.5 * pow(x, 2);
+    double s = 1.0 + lastTerm;
 
-    while (std::abs(prevSeriesElem) > epsilon) {
-        double k = -1 * (n + 1) * (2 * pow(n + 1, 2) + 1) * x * x / (n * (2 * n * n + 1) * (2 * n + 2) * (2 * n + 1));
-        prevSeriesElem = std::abs(prevSeriesElem) * k;
-        s += prevSeriesElem;
+    while (std::abs(lastTerm) > epsilon) {
+        lastTerm *= -(2 * pow(n, 2) + 4 * n + 3) / (8 * pow(n, 4) + 12 * pow(n, 3) + 8 * pow(n, 2) + 6 * pow(n, 1) + 2) * pow(x, 2);
+        s += lastTerm;
         ++n;
     }
 
     std::cout << std::setw(kDefaultWidth) << std::fixed << std::setprecision(kPrecisionX) << x << std::setw(kTask3tWidth)
               << std::setprecision(kPrecisionYS) << y << std::setw(kTask3tWidth) << std::setprecision(kPrecisionYS) << s << std::setw(kDefaultWidth)
-              << n << "   " << prevSeriesElem << std::endl;
+              << n << std::endl;
 }
 
 void ThirdTask() {
@@ -122,7 +111,7 @@ void FourthTask() {
     std::cout << "Результат для 3 слагаемых: " << CalculateY(n, kTerm1) << '\n';
     std::cout << "Результат для 5 слагаемых: " << CalculateY(n, kTerm2) << '\n';
     std::cout << "Результат для 10 слагаемых: " << CalculateY(n, kTerm3) << '\n';
-    if (n != 3 && n != 5 && n != 10) {
+    if (n != kTerm1 && n != kTerm2 && n != kTerm3) {
         std::cout << "Результат для " << n << " слагаемых: " << CalculateY(n, n) << '\n';
     }
 }
