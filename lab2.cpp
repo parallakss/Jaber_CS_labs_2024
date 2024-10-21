@@ -72,8 +72,7 @@ void SecondTask() {
 void CalculateTaylorSeries(double x) {
     const double epsilon = 1e-6;
     double y = std::cos(x) * (1 - x * x / kValue2) - std::sin(x) * (x / kValue2);
-    int n;
-    n = 1;
+    int n = 1;
     double lastTerm = kValue1 * pow(x, 2);
     double s = 1.0 + lastTerm;
 
@@ -114,7 +113,7 @@ double CalculateY(int n, int terms) {
 }
 
 void FourthTask() {
-    int n;
+    int n{};
 
     std::cout << "Введите натуральное число n: ";
     std::cin >> n;
