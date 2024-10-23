@@ -62,7 +62,7 @@ void SecondTask() {
     std::cin >> a;
 
     if (a >= kZero) {
-        for (double i = kNotNegativeABeginRange; i <= kNotNegativeAEnd; i += kNotNegativeAStep) {
+        for (int i = kNotNegativeABeginRange; i <= kNotNegativeAEnd; i += kNotNegativeAStep) {
             product *= (i * i);
         }
         product -= a;
