@@ -2,9 +2,9 @@
 #include "tasksolver.hpp"
 
 int main() {
-    double root = FindRoot();
+    double roott = FindRoot();
 
-    std::cout << "Приближённое значение корня: " << root << '\n';
+    std::cout << "Приближённое значение корня: " << roott << '\n';
 
     return 0;
 }
