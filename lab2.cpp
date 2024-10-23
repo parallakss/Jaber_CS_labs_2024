@@ -62,7 +62,7 @@ void SecondTask() {
     std::cin >> a;
 
     if (a >= kZero) {
-        for (int i = kNotNegativeABeginRange; i <= kNotNegativeAEnd; i += kNotNegativeAStep) {
+        for (double i = kNotNegativeABeginRange; i <= kNotNegativeAEnd; i += kNotNegativeAStep) {
             product *= (i * i);
         }
         product -= a;
@@ -72,7 +72,7 @@ void SecondTask() {
         }
     }
 
-    std::cout << product << '\n';
+    std::cout << std::fixed << std::setprecision(kValue2) << product << '\n';
 }
 
 void CalculateTaylorSeries(double x) {
@@ -123,18 +123,10 @@ void FourthTask() {
 
     std::cout << "Введите натуральное число n: ";
     std::cin >> n;
-    if (n >= kTerm3) {
-        std::cout << "Результат для 3 слагаемых: " << CalculateY(n, kTerm1) << '\n';
-        std::cout << "Результат для 5 слагаемых: " << CalculateY(n, kTerm2) << '\n';
-        std::cout << "Результат для 10 слагаемых: " << CalculateY(n, kTerm3) << '\n';
-    } else if (n >= kTerm2 && n < kTerm3) {
-        std::cout << "Результат для 3 слагаемых: " << CalculateY(n, kTerm1) << '\n';
-        std::cout << "Результат для 5 слагаемых: " << CalculateY(n, kTerm2) << '\n';
-    } else if (n >= kTerm1 && n < kTerm2) {
-        std::cout << "Результат для 3 слагаемых: " << CalculateY(n, kTerm1) << '\n';
-    }
-    if (n != kTerm1 && n != kTerm2 && n != kTerm3) {
-        std::cout << "Результат для " << n << " слагаемых: " << CalculateY(n, n) << '\n';
+    for (int i = 0; i <= n; i++) {
+        if (i == kTerm1 || i == kTerm2 || i == kTerm3 || i == n) {
+            std::cout << "Результат для " << i << " слагаемых: " << CalculateY(n, i) << '\n';
+        }
     }
 }
 
