@@ -28,7 +28,7 @@ void FirstTask() {
     std::cout << "Введите два натуральных, числовых значения n и m, таких что n>m" << '\n';
     std::cin >> n >> m;
 
-    if (m>n || m < 1 || n < 1){
+    if (m > n || m < 1 || n < 1) {
         std::cout << "Введены неверыне данные" << '\n';
         return;
     }
@@ -63,8 +63,9 @@ void SecondTask() {
 
     if (a >= kZero) {
         for (int i = kNotNegativeABeginRange; i <= kNotNegativeAEnd; i += kNotNegativeAStep) {
-            product *= (i * i - a);
+            product *= (i * i);
         }
+        product -= a;
     } else {
         for (int i = kNegativeABeginRange; i <= kNegativeAEnd; i += kNegativeAStep) {
             product *= (i - kTwo);
@@ -122,10 +123,16 @@ void FourthTask() {
 
     std::cout << "Введите натуральное число n: ";
     std::cin >> n;
-
-    std::cout << "Результат для 3 слагаемых: " << CalculateY(n, kTerm1) << '\n';
-    std::cout << "Результат для 5 слагаемых: " << CalculateY(n, kTerm2) << '\n';
-    std::cout << "Результат для 10 слагаемых: " << CalculateY(n, kTerm3) << '\n';
+    if (n >= kTerm3) {
+        std::cout << "Результат для 3 слагаемых: " << CalculateY(n, kTerm1) << '\n';
+        std::cout << "Результат для 5 слагаемых: " << CalculateY(n, kTerm2) << '\n';
+        std::cout << "Результат для 10 слагаемых: " << CalculateY(n, kTerm3) << '\n';
+    } else if (n >= kTerm2 && n < kTerm3) {
+        std::cout << "Результат для 3 слагаемых: " << CalculateY(n, kTerm1) << '\n';
+        std::cout << "Результат для 5 слагаемых: " << CalculateY(n, kTerm2) << '\n';
+    } else if (n >= kTerm1 && n < kTerm2) {
+        std::cout << "Результат для 3 слагаемых: " << CalculateY(n, kTerm1) << '\n';
+    }
     if (n != kTerm1 && n != kTerm2 && n != kTerm3) {
         std::cout << "Результат для " << n << " слагаемых: " << CalculateY(n, n) << '\n';
     }
