@@ -28,6 +28,11 @@ void FirstTask() {
     std::cout << "Введите два натуральных, числовых значения n и m, таких что n>m" << '\n';
     std::cin >> n >> m;
 
+    if (m>n || m < 1 || n < 1){
+        std::cout << "Введены неверыне данные" << '\n';
+        return;
+    }
+
     const int step = 5;
     const int rangeBegin = 5;
 
