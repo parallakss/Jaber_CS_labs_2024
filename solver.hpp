@@ -1,10 +1,10 @@
 
-namespace Solver{
-    void printResult(double x, int iterationsCount);
+namespace Solver {
+void printResult(double x, int iterationsCount);
 
-    void RunIterationMethod();
-    void RunNewtonMethod();
-    void RunHalfCoefficientMethod();
+void RunIterationMethod();
+void RunNewtonMethod();
+void RunHalfCoefficientMethod();
 
-    void start();
-}
+void start();
+}  // namespace Solver

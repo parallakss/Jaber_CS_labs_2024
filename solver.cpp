@@ -9,11 +9,11 @@ const int kmaxIterationsCount = 1e8 - 1;
     return coefficient * std::cos(x);
 }
 
-[[nodiscard]] double f(double x, int coefficient) {
+[[nodiscard]] double f(double x, double coefficient) {
     return x - coefficient * std::cos(x);
 }
 
-[[nodiscard]] double derivativef(double x, int coefficient) {
+[[nodiscard]] double derivativef(double x, double coefficient) {
     return 1 + coefficient * std::sin(x);
 }
 }  // namespace
