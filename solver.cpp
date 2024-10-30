@@ -4,6 +4,7 @@
 #include <iostream>
 
 namespace {
+const double kBorederChek = 0.74;
 const int kmaxIterationsCount = 1e8 - 1;
 
 [[nodiscard]] double CalculateIterationMethodX(double coefficient, double x) {
@@ -148,7 +149,7 @@ void RunHalfCoefficientMethod() {
     std::cin >> epsilon;
     std::cout << "Введите коэффициент уравнения при cos(x): ";
     std::cin >> coefficient;
-    if (leftRangeLimit > 0.74 || rightRangeLimit < 0.74) {
+    if (leftRangeLimit > kBorederChek || rightRangeLimit < kBorederChek) {
         std::cout << "В данном диапозоне корень лежать не может" << '\n';
         return;
     }
