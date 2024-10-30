@@ -1,10 +1,6 @@
-#include <iostream>
-#include "tasksolver.hpp"
+#include "solver.hpp"
 
 int main() {
-    double roott = FindRoot();
-
-    std::cout << "Приближённое значение корня: " << roott << '\n';
-
+    Solver::start();
     return 0;
 }
