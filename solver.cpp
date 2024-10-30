@@ -154,12 +154,6 @@ void RunHalfCoefficientMethod() {
     }
 }
 
-enum class Solution {
-    FirstSolution = 1,
-    SecondSolution = 2,
-    ThirdSolution = 3,
-};
-
 void inputProcessing(Solution method) {
     switch (method) {
         case Solution::FirstSolution:
