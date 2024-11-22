@@ -1,7 +1,3 @@
-namespace {
-    void ArrayGenerator(int* array, int arrayLength);
-}
-
 void selectArraySort();
 void PrintMenu();
 void RunStaticArraySort();
