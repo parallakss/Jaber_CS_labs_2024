@@ -1,6 +1,6 @@
 #include "arraySort.hpp"
 
 int main() {
-    selectArraySort();
+    SortsArrays::ExecutionApp();
     return 0;
 }
